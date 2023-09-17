@@ -11,4 +11,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SPA\ssl\" />
+  </ItemGroup>
 </Project>
