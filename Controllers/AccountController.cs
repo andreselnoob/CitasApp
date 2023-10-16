@@ -51,11 +51,11 @@ public class AccountController:BaseCont
         x.UserName.ToLower()==loginDto.Username.ToLower());
         if (user == null) return Unauthorized(User_pass_mess);
         using var hmac=new HMACSHA512(user.PasswordSalt);
-        var computedhash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-        for(int i = 0;i<computedhash.Length; i++)
+        for(int i = 0;i<computedHash.Length; i++)
         {
-            if (computedhash[i] != user.PasswordHash[i]) return Unauthorized(User_pass_mess);
+            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized(User_pass_mess);
         }
 
         return new UserDto
