@@ -1,0 +1,16 @@
+<h4>Internal server error</h4>
+<ng-container *ngif="error">
+  <h5 class="text-danger">Error:{{error.message}}</h5>
+  <p class="font-weight-bold">Problema de back end</p>
+  <p>siguientes pasos</p>
+  <ol>
+    <li>abrir las herramientas de desarrollo</li>
+    <li>validar la solicitud erronea en la pestana de red </li>
+    <li>revisar la url de la solicitud</li>
+    <li>Reproducir el problema en postman</li>
+  </ol>
+  <p style="font-weight: bold;">Pila de llamadas de error</p>
+  <code class="mt-5" style="background-color: aquamarine;">
+    {{error.details}}
+  </code>
+</ng-container>   

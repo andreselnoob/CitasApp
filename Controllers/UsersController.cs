@@ -1,24 +1,23 @@
 ﻿using CitasApp.Data;
 using CitasApp.Entities;
+using CitasApp.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace CitasApp.Controllers;
 [Authorize]
 public class UsersController : BaseCont {
-    private readonly DataContext _context;
-    public UsersController(DataContext context)
+    private readonly IUserRepository _userRepository;
+    public UsersController(IUserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
-    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers() {
-        return await _context.Users.ToListAsync();
+        return Ok(await _userRepository.GetUsersAsync());
     }
-    [Authorize]
-    [HttpGet("{id}")]
-    public async Task<ActionResult<AppUser>> GetUser(int id){
-        return await _context.Users.FindAsync(id);
+    [HttpGet("{username}")]
+    public async Task<ActionResult<AppUser>> GetUser(string username){
+        return Ok(await _userRepository.GetUserByUsernameAsync(username));
     }
 }
