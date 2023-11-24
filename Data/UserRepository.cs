@@ -2,15 +2,29 @@
 using CitasApp.Entities;
 using CitasApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using CitasApp.DTOs;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 public class UserRepository : IUserRepository
 {
     private readonly DataContext _context;
+    private readonly IMapper _mapper;
 
-    public UserRepository(DataContext context)
+    public UserRepository(DataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
+    }
 
+    public async Task<MemberDto> GetMemberAsync(string username)
+    {
+        return await _context.Users.Where(x => x.UserName == username).ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+    }
+
+    public Task<IEnumerable<MemberDto>> GetMembersAsync()
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<AppUser> GetUserByIdAsync(int id)
@@ -26,6 +40,7 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
         return await _context.Users.Include(p=>p.Photos).ToListAsync();
+        
     }
 
     public async Task<bool> SaveAllAsync()

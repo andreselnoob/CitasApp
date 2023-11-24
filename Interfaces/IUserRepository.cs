@@ -1,4 +1,5 @@
-﻿using CitasApp.Entities;
+﻿using CitasApp.DTOs;
+using CitasApp.Entities;
 
 namespace CitasApp.Interfaces;
 public interface IUserRepository
@@ -8,5 +9,6 @@ public interface IUserRepository
     Task<IEnumerable<AppUser>> GetUsersAsync();
     Task<bool> SaveAllAsync();
     void Update(AppUser user);
-        
+    Task<IEnumerable<MemberDto>> GetMembersAsync();
+    Task<MemberDto> GetMemberAsync(string username);
 }
