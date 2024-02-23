@@ -8,4 +8,5 @@ export const preventUnsavedChangesGuard: CanDeactivateFn<MemberEditComponent> =
       return confirm("Se perderán los cambios de este sitio, ¿deseas continuar?")
     }
     return true;
+
   }
