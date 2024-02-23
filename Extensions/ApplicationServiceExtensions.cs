@@ -1,6 +1,7 @@
 ﻿using CitasApp.Data;
 using CitasApp.Interfaces;
 using CitasApp.Services;
+using CitasApp.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace CitasApp.Extensions;
@@ -16,6 +17,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         return services;
 
     }

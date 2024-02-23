@@ -22,9 +22,11 @@ public class UserRepository : IUserRepository
         return await _context.Users.Where(x => x.UserName == username).ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 
-    public Task<IEnumerable<MemberDto>> GetMembersAsync()
+    public async Task<IEnumerable<MemberDto>> GetMembersAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+            .ToListAsync();
     }
 
     public async Task<AppUser> GetUserByIdAsync(int id)
